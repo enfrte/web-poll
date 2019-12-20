@@ -1,5 +1,5 @@
 {
-  "name": "Web poll",
+  "name": "coding-in-the-cold/web-poll",
   "description": "A simple web poll",
   "autoload": {
     "psr-4": {
