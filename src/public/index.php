@@ -14,6 +14,7 @@
     //require $_SERVER['DOCUMENT_ROOT'].'/web-poll/src/Frontend/ballot.view.php';
   ?>
 
+  <div id="debug"></div>
   <script src="src/public/js/poll-vote.js"></script>
 </body>
 </html>

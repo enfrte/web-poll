@@ -3,7 +3,7 @@
   "description": "A simple web poll",
   "autoload": {
     "psr-4": {
-      "WebPoll\\": "src"
+      "WebPoll\\": "src/"
     }
   }
 }

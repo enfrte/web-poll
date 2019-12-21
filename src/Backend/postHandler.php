@@ -1,5 +1,5 @@
 <?php 
-
+require '../../vendor/autoload.php'; // notify php of autoload.php. Can be removed if RenderTemplates works better.
 use WebPoll\Backend\Ballot;
 
 if(isset( $_POST['vote'] )) {

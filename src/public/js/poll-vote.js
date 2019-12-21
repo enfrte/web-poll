@@ -12,6 +12,7 @@ const submitVote = async (value) => {
     });
     let result = await postVote.text();
     console.log('result:',result);
+    document.querySelector('#debug').innerHTML = result;
   } catch (error) {
     console.error(error);
   }
