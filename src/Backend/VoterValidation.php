@@ -5,16 +5,15 @@ namespace WebPoll\Backend;
  * Validates an email address
  */
 class VoterValidation {
-  private $errors;
+  public $errors;
   private $voterIpAddress;
   private $voterIpAddressDb;
 
   public function __construct() {
     $this->voterIpAddress = $_SERVER['REMOTE_ADDR'];     
     // echo "Debug: Your IP Address is $this->voterIpAddress <br />"; exit();
-    $this->voterIpAddressDb = 'ip-address-db.log';
+    $this->voterIpAddressDb = '../Database/ip-address-db.log';
     $this->checkDuplicateIpAddress();
-    return $this->errors;
   } 
 
   public function checkDuplicateIpAddress() {

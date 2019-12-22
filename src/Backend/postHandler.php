@@ -1,11 +1,41 @@
 <?php 
-require '../../vendor/autoload.php'; // If you link directly to your postHandler.php, PHP will not be aware of the composer autoloader because it didn't execute index.php
-use WebPoll\Backend\Ballot;
+  ini_set('display_errors', 1);
+  ini_set('display_startup_errors', 1);
+  error_reporting(E_ALL);
 
-if(isset( $_POST['vote'] )) {
-  $ballot = new Ballot($_POST['vote']);
-  //var_dump($ballot);
-} else {
-  echo 'Data not received';
-  //print_r($_POST);
+require '../../vendor/autoload.php'; // If you link directly to your postHandler.php, PHP will not be aware of the composer autoloader because it didn't execute index.php
+
+use WebPoll\Backend\Ballot;
+use WebPoll\Backend\VoterValidation;
+
+$result = [];
+
+$validateVoter = new VoterValidation;
+$errors = $validateVoter->errors; 
+if ($errors) {
+  foreach ($errors as $key => $value) {
+    $result['errors'] = [$key => $value];
+  }
+  sendResultJson($result);
+}
+
+if(!isset( $_POST['vote'] )) {
+  $result['errors'] = ['postError' => 'Vote was not received.'];
+  sendResultJson($result);
+}
+$ballot = new Ballot($_POST['vote']);
+
+if (!$ballot->logIpAddress()) {
+  $result['errors'] = ['ipAddressLogError' => 'Could not submit vote. There was a problem with your registration.'];
+  sendResultJson($result);
+}
+$ballot->registerVote(); // ipa logged, vote counted.
+
+
+
+function sendResultJson(array $result)
+{
+  $resultJson = json_encode($result);
+  echo $resultJson;
+  exit;
 }
