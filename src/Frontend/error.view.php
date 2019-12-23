@@ -1,4 +1,1 @@
-<?php 
-  echo 'php output...<br>';
-?>
-<h1>No frontend view specified</h1>
+<h3>No frontend view specified</h3>

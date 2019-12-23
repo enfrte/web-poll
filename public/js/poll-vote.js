@@ -1,4 +1,3 @@
-//console.log(window.location.href);
 const rootElement = document.querySelector('#webPollBallot');
 
 const submitVote = async (value) => {
@@ -15,7 +14,6 @@ const submitVote = async (value) => {
     document.querySelector('#debug').innerHTML = result;
     console.log('result:',result.errors);
     if (result.success === false) {
-      // display error template
       rootElement.innerHTML = displayError(result);
       return;
     }
@@ -61,7 +59,6 @@ const displayError = (result) => {
 
 const webPollErrorButton = async (type) => {
   if (type === 'viewResults') {
-    // show results view
     rootElement.innerHTML = await displayResults();
   } else {
     // return to select view

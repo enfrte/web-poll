@@ -1,9 +1,6 @@
 <?php 
 namespace WebPoll\Backend;
 
-// think about using as static class
-// https://www.daggerhart.com/simple-php-template-class/
-// https://www.daggerhart.com/create-simple-php-templating-function/
 class RenderTemplate {
   private $templatePath;
   
