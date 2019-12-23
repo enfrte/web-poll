@@ -7,7 +7,7 @@ namespace WebPoll\Backend;
 class RenderTemplate {
   private $templatePath;
   
-  public function __construct(String $filePath = 'src/Frontend/error.view.php')
+  public function __construct(String $filePath = '')
   {
     // check files exist !file_exists($filePath)
     $this->templatePath = $filePath;
