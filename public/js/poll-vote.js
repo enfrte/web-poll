@@ -17,6 +17,7 @@ const submitVote = async (value) => {
       rootElement.innerHTML = displayError(result);
       return;
     }
+    rootElement.innerHTML = await displayResults();
   } catch (error) {
     console.error(error);
   }
@@ -34,7 +35,7 @@ const displayResults = async () => {
   for (result in results) {
     let percent = (100 * results[result] / totalVotes).toFixed(1);
     resultsMarkup += `<div class="ballot-result">
-      <p class="web-poll-result-candidate">${result}</p>
+      <p class="web-poll-result-candidate"><strong>${result}</strong></p>
       <div class="web-poll-percent-bar" style="width: ${percent}%">
         <div class="web-poll-percent-number">${percent}%</div>
       </div>

@@ -15,7 +15,6 @@
       margin: 0;
     }
     body {
-      background-color: pink;
       display: flex;
       justify-content: center;
       align-items: center;
