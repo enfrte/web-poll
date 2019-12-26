@@ -17,12 +17,12 @@ if ($errors) {
   sendResultJson($result);
 }
 
-if(!isset( $_POST['vote'] )) {
-  $result['errors'] = ['postError' => 'Vote was not received.'];
+if( !isset($_POST['vote']) || !isset($_POST['candidates']) ) {
+  $result['errors'] = ['postError' => 'POST data was not received.'];
   $result['success'] = false;
   sendResultJson($result);
 }
-$ballot = new Ballot($_POST['vote']);
+$ballot = new Ballot($_POST['vote'], $_POST['candidates']);
 
 if (!$ballot->logIpAddress()) {
   $result['errors'] = ['ipAddressLogError' => 'Could not submit vote. There was a problem with your registration.'];
@@ -32,6 +32,9 @@ if (!$ballot->logIpAddress()) {
 
 if ($ballot->registerVote()) {
   $result['success'] = true;
+  sendResultJson($result);
+} else {
+  $result['errors'] = ['registerVoteError' => 'Failed to register vote.'];
   sendResultJson($result);
 }
 

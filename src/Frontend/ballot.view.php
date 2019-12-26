@@ -1,6 +1,6 @@
 <!-- Ballot candidates -->
 <div id="webPollBallot"><!-- pollLanguage -->
-  <h3>Do you like this poll?</h3>
+  <h3 id="webPollBallotQuestion">Do you like this poll?</h3>
   <form class="web-poll-ballot-container">
     <div class="web-poll-ballot-candidate-container">
       <input type="radio" id="WebPoll_yes" class="web-poll-vote" name="web-poll-vote" value="Yes, I do"> 

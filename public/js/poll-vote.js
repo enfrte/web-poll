@@ -1,10 +1,13 @@
 const rootElement = document.querySelector('#webPollBallot');
+const ballotQuestion = document.querySelector('#webPollBallotQuestion').innerText;
+const candidates = [];
 
 const submitVote = async (value) => {
   // there are different ways to use the Fetch API to send data to PHP, but this is how I currently prefer to do it. 
   let formData = new FormData(); // create a form
   formData.append('vote', value); // create a form field
-
+  formData.append('candidates', JSON.stringify(candidates)); // create a form field
+  
   try {
     let postVote = await fetch('src/Backend/postHandler.php', {
       method: 'POST',
@@ -24,14 +27,14 @@ const submitVote = async (value) => {
 };
 
 const displayResults = async () => {
-  let voteResults = await fetch('src/Backend/resultsHandler.php');
-  let results = await voteResults.json();
+  const voteResults = await fetch('src/Backend/resultsHandler.php');
+  const results = await voteResults.json();
   //console.log(results);
   let totalVotes = 0;
   for (let [key, value] of Object.entries(results)) {
     totalVotes += value;
   }
-  let resultsMarkup = '<div class="ballot-results-container"><h3>Results:</h3>';
+  let resultsMarkup = `<div class="ballot-results-container"><h3>Results:</h3><p><strong>${ballotQuestion}</strong></p>`;
   for (result in results) {
     let percent = (100 * results[result] / totalVotes).toFixed(1);
     resultsMarkup += `<div class="ballot-result">
@@ -68,11 +71,13 @@ const webPollErrorButton = async (type) => {
 }
 
 // events for radio buttons
-const radioButton = document.querySelectorAll('input[type=radio][name=web-poll-vote]');
+const radioButtons = document.querySelectorAll('input[type=radio][name=web-poll-vote]');
 const getVote = (el) => {
-  console.log('getVote:', el.target.value);
-  submitVote(el.target.value);
+  const vote = el.target.value;
+  //console.log('getVote:', vote);
+  submitVote(vote);
 };
-radioButton.forEach((el) => {
+radioButtons.forEach((el) => {
+  candidates.push(el.value); 
   el.addEventListener('change', getVote);
 });

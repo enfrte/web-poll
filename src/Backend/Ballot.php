@@ -5,16 +5,18 @@ class Ballot {
   private $voterIpAddressDb = '../Database/ip-address-db.log';
   private $ipAddress;
   private $voteChoice; 
+  private $voteCandidates; 
   private $voteTable = [];
   private $voteTableFile = '../Database/poll-results.log';
 
-  public function __construct(String $voteChoice) {
+  public function __construct(String $voteChoice, String $voteCandidates) {
     $this->ipAddress = $_SERVER['REMOTE_ADDR']; 
     $this->voteChoice = $voteChoice; 
+    $this->voteCandidates = \json_decode($voteCandidates); 
     $jsonData = file_get_contents($this->voteTableFile);
     $phpData = \json_decode($jsonData, TRUE);
     if (count($phpData) > 0) {
-      $this->voteTable = $phpData;
+      $this->voteTable = $phpData; // else use default value
     }
   }
 
@@ -31,13 +33,21 @@ class Ballot {
 
   public function registerVote() {
     $candidate = $this->voteChoice;
+    $this->registerAllCandidates();
     if (array_key_exists($candidate, $this->voteTable)) {
       $this->voteTable[$candidate]++;
-    } else {
-      $this->voteTable[$candidate] = 1;
-    }
+    } 
     $this->storeVote();
     return true;
+  }
+
+  // Registers all candidates regardless of whether they have recieved a vote or not. Needed for visibility in the results screen.
+  private function registerAllCandidates() {
+    foreach ($this->voteCandidates as $key => $candidate) {
+      if (!array_key_exists($candidate, $this->voteTable)) {
+        $this->voteTable[$candidate] = 0;
+      }
+    }
   }
 
   private function storeVote() {
