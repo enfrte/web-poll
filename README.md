@@ -2,6 +2,8 @@
 
 A simple web poll — Allows a single poll to be created. Blocks multiple vote attempts by registering voter IP addresses. Reads/writes votes to flat file JSON object. 
 
+Demo: http://codinginthecold.byethost5.com/demos/web-poll/
+
 ### Own feedback
 
 This has given me a little more OO PHP practice. It was quite a handy project to create, because of the forking possibilities. For example, it could be extended to make complete questionnaires. 

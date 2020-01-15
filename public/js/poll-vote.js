@@ -14,8 +14,8 @@ const submitVote = async (value) => {
       body: formData
     });
     let result = await postVote.json();
-    document.querySelector('#debug').innerHTML = result;
-    console.log('result:',result.errors);
+    //document.querySelector('#debug').innerHTML = result;
+    //console.log('result:',result.errors);
     if (result.success === false) {
       rootElement.innerHTML = displayError(result);
       return;
